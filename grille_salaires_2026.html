@@ -1,282 +1,129 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>FO Cattenom — Grille des salaires IEG</title>
-<meta name="description" content="Nouvelle proposition de page HTML FO Cattenom sur la grille des salaires IEG." />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
-<style>
-:root{
-  --ink:#151824;
-  --black:#15161b;
-  --navy:#1a1a2e;
-  --blue:#0f3460;
-  --cyan:#0799c6;
-  --teal:#27b7a9;
-  --red:#d63b52;
-  --red-soft:#fff1f4;
-  --amber:#ffb703;
-  --cream:#fbfaf7;
-  --soft:#f3f7fa;
-  --line:#dfe7ee;
-  --muted:#596575;
-  --paper:#fff;
-  --shadow:0 22px 60px rgba(15,52,96,.13);
-  --radius:28px;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{
-  margin:0;
-  font-family:Montserrat,Arial,sans-serif;
-  color:var(--ink);
-  line-height:1.6;
-  background:
-    radial-gradient(circle at 92% 8%,rgba(39,183,169,.18),transparent 30%),
-    radial-gradient(circle at 5% 88%,rgba(15,52,96,.10),transparent 28%),
-    linear-gradient(180deg,var(--cream) 0%,#fff 47%,#f7fafb 100%);
-}
-.wrap{width:min(1140px,calc(100% - 34px));margin:auto}
-.logo-watermark{position:fixed;right:-70px;top:130px;width:min(52vw,540px);opacity:.045;z-index:-4;pointer-events:none;filter:grayscale(.1)}
-.topbar{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}
-.brand{display:flex;align-items:center;gap:13px;text-decoration:none;color:inherit}
-.brand img{width:64px;height:auto}
-.brand b{display:block;line-height:1;font-size:.93rem}
-.brand span{font-size:.75rem;font-weight:850;color:#66717f}
-.menu{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
-.menu a{text-decoration:none;color:var(--black);font-size:.75rem;font-weight:900;border-radius:999px;padding:9px 11px}
-.menu a:hover{background:#eefaff;color:var(--blue)}
-.cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;border-radius:999px;padding:13px 19px;background:var(--blue);color:white;font-weight:950;box-shadow:0 14px 30px rgba(15,52,96,.18);transition:.2s}
-.cta:hover{transform:translateY(-1px);background:var(--navy)}
-.cta.alt{background:white;color:var(--blue);border:2px solid var(--blue);box-shadow:none}
-.hero{position:relative;overflow:hidden;padding:72px 0 42px}
-.hero:before{content:"";position:absolute;right:-78px;top:0;width:50%;height:116px;background:linear-gradient(135deg,var(--navy),var(--blue) 62%,var(--teal));clip-path:polygon(18% 0,100% 0,100% 100%,0 0);opacity:.96}
-.hero-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:30px;align-items:center;position:relative}
-.kicker{display:inline-flex;gap:9px;align-items:center;padding:8px 13px;border-radius:999px;background:#e4f8f5;color:#08715f;font-weight:950;text-transform:uppercase;font-size:.76rem;letter-spacing:.06em;margin-bottom:18px}
-h1,h2,.display{font-family:'Bebas Neue',Montserrat,sans-serif;letter-spacing:.025em;text-transform:uppercase}
-h1{font-size:clamp(3.1rem,7vw,6.55rem);line-height:.88;margin:0 0 18px;color:var(--black);text-wrap:balance}
-h1 .blue{color:var(--blue)} h1 .red{color:var(--red)} h1 .teal{color:var(--teal)}
-.lead{font-size:clamp(1.05rem,1.75vw,1.28rem);font-weight:760;max-width:820px;margin:0 0 24px}
-.lead strong{color:var(--blue)}
-.actions{display:flex;gap:12px;flex-wrap:wrap}
-.hero-card{background:rgba(255,255,255,.97);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px;position:relative;overflow:hidden}
-.hero-card::before{content:"Décryptage FO";position:absolute;right:-24px;top:23px;background:var(--blue);color:white;font-weight:950;transform:rotate(34deg);padding:8px 56px;font-size:.78rem}
-.hero-card .date{font-family:'Bebas Neue';font-size:clamp(3.1rem,6vw,5rem);line-height:.9;color:var(--teal);margin:0}
-.warning{border-left:7px solid var(--red);background:var(--red-soft);border-radius:0 18px 18px 0;padding:15px 17px;font-weight:850;margin-top:16px}
-.visual{margin-top:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.metric{border:1px solid var(--line);border-radius:20px;padding:15px;background:#fff;box-shadow:0 10px 25px rgba(17,42,68,.06)}
-.metric b{display:block;font-family:'Bebas Neue';font-size:2.25rem;line-height:.9;color:var(--blue)}
-.metric span{display:block;font-size:.78rem;font-weight:850;color:var(--muted)}
-.metric.alert{border-color:#f1cfd6;background:#fff8f9}.metric.alert b{color:var(--red)}
-.section{padding:42px 0}
-.section h2{font-size:clamp(2.3rem,5vw,3.95rem);line-height:.95;margin:0 0 12px;color:var(--black)}
-.section h2 span{color:var(--blue)}
-.sub{margin:0 0 24px;color:var(--muted);font-weight:720;max-width:930px}
-.grid{display:grid;gap:18px}
-.two{grid-template-columns:repeat(2,1fr)}
-.three{grid-template-columns:repeat(3,1fr)}
-.card{background:white;border:1px solid var(--line);border-radius:24px;padding:23px;box-shadow:0 14px 34px rgba(15,52,96,.08);position:relative;overflow:hidden}
-.card.dark{background:linear-gradient(135deg,var(--navy),var(--blue));color:white;border-color:transparent}
-.card.dark p,.card.dark li{color:#ecf4f8}
-.card.negative{background:linear-gradient(180deg,#fff 0%,#fff8f9 100%);border-left:7px solid var(--red)}
-.card.positive{background:linear-gradient(180deg,#fff 0%,#f1fffc 100%);border-left:7px solid var(--teal)}
-.card h3{margin:0 0 9px;font-size:1.13rem}
-.card p,.card li{font-weight:650;color:#303842}
-ul{padding-left:1.15rem;margin:8px 0 0}
-.tag{display:inline-flex;padding:7px 11px;border-radius:999px;font-size:.72rem;font-weight:950;text-transform:uppercase;letter-spacing:.06em;background:#eef7fb;color:var(--blue);margin-bottom:12px}
-.tag.bad{background:var(--red-soft);color:#9e2037}
-.tag.teal{background:#e4f8f5;color:#08715f}
-.tag.amber{background:#fff8df;color:#8a5b00}
-.impact-strip{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:stretch}
-.negative-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.neg{background:white;border:1px solid #f1cfd6;border-left:5px solid var(--red);border-radius:19px;padding:16px;min-height:145px;box-shadow:0 10px 26px rgba(214,59,82,.07)}
-.neg .ico{font-size:1.55rem}.neg b{display:block;color:var(--black);margin:8px 0 4px}.neg span{display:block;font-size:.9rem;font-weight:650;color:#4b5563}
-.timeline{display:grid;gap:12px;counter-reset:s}
-.step{counter-increment:s;display:grid;grid-template-columns:54px 1fr;gap:15px;background:white;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 10px 26px rgba(17,42,68,.06)}
-.step:before{content:counter(s);display:grid;place-items:center;width:46px;height:46px;border-radius:16px;background:var(--blue);color:white;font-family:'Bebas Neue';font-size:2rem}
-.callout{background:linear-gradient(135deg,#fff,var(--soft));border:1px solid var(--line);border-radius:30px;padding:28px;box-shadow:var(--shadow)}
-.callout strong{color:var(--red)}
-.final{font-family:'Bebas Neue';font-size:clamp(2.25rem,5vw,4.5rem);text-align:center;line-height:.96;color:white;background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:30px;padding:30px;box-shadow:var(--shadow)}
-.final span{color:#7fe5d8}
-footer{margin-top:34px;background:#11131a;color:white;padding:35px 0;overflow:hidden;position:relative}
-footer:before{content:"";position:absolute;right:-60px;top:-90px;width:240px;height:240px;background:var(--teal);border-radius:50%;opacity:.28}
-.foot{position:relative;display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}
-.foot img{width:74px;background:white;border-radius:18px;padding:8px}.foot p{margin:0;color:#dcecf4;font-weight:750}
-.reveal{opacity:0;transform:translateY(16px);transition:.6s}.reveal.show{opacity:1;transform:none}
-@media(max-width:980px){.hero-grid,.two,.three,.impact-strip,.negative-grid{grid-template-columns:1fr}.menu{display:none}.hero:before{width:72%;height:86px}.hero-card:before{display:none}}
-@media(max-width:560px){.wrap{width:min(100% - 24px,1140px)}.brand img{width:52px}.actions a{width:100%}h1{font-size:3.25rem}.card,.hero-card{padding:19px}.step{grid-template-columns:1fr}.visual{grid-template-columns:1fr}}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FO Cattenom — Grille des salaires 2026</title>
+  <meta name="description" content="FO Cattenom décrypte les impacts du projet de modernisation de la grille des salaires IEG." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --ink:#151824;--navy:#151a2e;--blue:#0f3460;--cyan:#0799c6;--green:#27b7a9;
+      --red:#d63b52;--red-soft:#fff0f3;--cream:#fbfaf7;--soft:#f2f6f8;--line:#dde6ee;
+      --muted:#5b6674;--white:#fff;--shadow:0 24px 60px rgba(15,52,96,.14);
+    }
+    *{box-sizing:border-box} html{scroll-behavior:smooth}
+    body{margin:0;font-family:Montserrat,Arial,sans-serif;background:linear-gradient(180deg,var(--cream),#fff 45%,#f7fafb);color:var(--ink);line-height:1.6;overflow-x:hidden}
+    body:before{content:"";position:fixed;inset:0;z-index:-3;background:radial-gradient(circle at 95% 3%,rgba(39,183,169,.18),transparent 28%),radial-gradient(circle at 6% 90%,rgba(15,52,96,.10),transparent 30%)}
+    .watermark{position:fixed;right:-90px;top:135px;width:min(540px,55vw);opacity:.055;z-index:-2;pointer-events:none}
+    .wrap{width:min(1140px,calc(100% - 34px));margin:auto}
+    .topbar{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 0}.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}.brand img{width:62px}.brand b{display:block;line-height:1;font-size:.95rem}.brand span{font-size:.75rem;font-weight:900;color:var(--muted)}
+    .menu{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.menu a{text-decoration:none;color:var(--ink);font-weight:900;font-size:.76rem;border-radius:999px;padding:9px 11px}.menu a:hover{background:#eef8fb;color:var(--blue)}
+    .hero{position:relative;padding:72px 0 48px}.hero:after{content:"";position:absolute;right:-70px;top:0;width:50%;height:110px;background:linear-gradient(135deg,var(--navy),var(--blue),var(--green));clip-path:polygon(18% 0,100% 0,100% 100%,0 0)}
+    .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:32px;align-items:center;position:relative;z-index:1}.kicker{display:inline-flex;border-radius:999px;background:#edf8fb;color:var(--blue);font-weight:950;text-transform:uppercase;letter-spacing:.06em;font-size:.76rem;padding:8px 13px;margin-bottom:18px}
+    h1,h2,.display{font-family:'Bebas Neue',Montserrat,sans-serif;letter-spacing:.025em;text-transform:uppercase}h1{font-size:clamp(3.2rem,7vw,6.5rem);line-height:.88;margin:0 0 20px}.blue{color:var(--blue)}.red{color:var(--red)}.lead{font-size:clamp(1.05rem,1.7vw,1.25rem);font-weight:750;margin:0 0 24px;max-width:820px}.lead strong{color:var(--red)}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:999px;text-decoration:none;padding:13px 20px;font-weight:950;background:var(--blue);color:#fff;box-shadow:0 14px 30px rgba(15,52,96,.18)}.btn.alt{background:#fff;color:var(--blue);border:2px solid var(--blue);box-shadow:none}.btn:hover{transform:translateY(-1px)}
+    .hero-card{background:rgba(255,255,255,.96);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);padding:28px;position:relative;overflow:hidden}.hero-card:before{content:"18 juin 2026";position:absolute;right:-30px;top:24px;background:var(--blue);color:white;font-weight:950;transform:rotate(34deg);padding:8px 60px;font-size:.78rem}.bigdate{font-family:'Bebas Neue';font-size:clamp(3.4rem,6vw,5rem);line-height:.9;color:var(--green);margin:0}.warning{border-left:6px solid var(--red);background:var(--red-soft);border-radius:0 18px 18px 0;padding:15px 17px;font-weight:850;margin-top:16px}
+    section{padding:44px 0}h2{font-size:clamp(2.4rem,5vw,4rem);line-height:.95;margin:0 0 12px}.sub{margin:0 0 24px;color:var(--muted);font-weight:700;max-width:920px}.grid{display:grid;gap:18px}.two{grid-template-columns:repeat(2,1fr)}.three{grid-template-columns:repeat(3,1fr)}.four{grid-template-columns:repeat(4,1fr)}
+    .card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:23px;box-shadow:0 14px 34px rgba(15,52,96,.08);position:relative;overflow:hidden}.card.dark{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border-color:transparent}.card.dark p,.card.dark li{color:#edf5f8}.card.negative{border-left:6px solid var(--red);background:linear-gradient(180deg,#fff,#fff7f9)}.tag{display:inline-flex;padding:7px 11px;border-radius:999px;font-size:.72rem;font-weight:950;text-transform:uppercase;letter-spacing:.06em;background:#eef7fb;color:var(--blue);margin-bottom:12px}.tag.bad{background:var(--red-soft);color:#9e2037}.tag.good{background:#e4f8f5;color:#08715f}.card h3{margin:0 0 9px;font-size:1.12rem}.card p,.card li{font-weight:650;color:#303842}ul{padding-left:1.15rem;margin:8px 0 0}.icon{font-size:2.1rem;margin-bottom:8px}
+    .status{display:grid;grid-template-columns:1fr auto 1fr;gap:18px;align-items:stretch}.vs{display:grid;place-items:center;font-family:'Bebas Neue';font-size:2.7rem;color:var(--blue)}.pillrow{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}.pill{font-weight:950;border-radius:999px;padding:9px 12px;background:#eef7fb;color:var(--blue)}.pill.fo{background:#e4f8f5;color:#08715f}.pill.alert{background:var(--red-soft);color:#9e2037}
+    .timeline{display:grid;gap:12px;counter-reset:s}.step{counter-increment:s;display:grid;grid-template-columns:54px 1fr;gap:15px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px;box-shadow:0 10px 26px rgba(17,42,68,.06)}.step:before{content:counter(s);display:grid;place-items:center;width:46px;height:46px;border-radius:16px;background:var(--blue);color:white;font-family:'Bebas Neue';font-size:2rem}.step h3{margin:0 0 4px}.step p{margin:0;font-weight:650;color:#303842}
+    .callout{background:linear-gradient(135deg,#fff,var(--soft));border:1px solid var(--line);border-radius:30px;padding:28px;box-shadow:var(--shadow)}.callout strong{color:var(--red)}.final{font-family:'Bebas Neue';font-size:clamp(2.3rem,5vw,4.5rem);text-align:center;line-height:.96;color:white;background:linear-gradient(135deg,var(--navy),var(--blue));border-radius:30px;padding:32px;box-shadow:var(--shadow)}.final span{color:#7fe5d8}
+    footer{margin-top:34px;background:#11131a;color:#fff;padding:35px 0;position:relative;overflow:hidden}footer:before{content:"";position:absolute;right:-60px;top:-90px;width:240px;height:240px;background:var(--green);border-radius:50%;opacity:.28}.foot{position:relative;display:flex;justify-content:space-between;gap:20px;align-items:center;flex-wrap:wrap}.foot img{width:74px;background:#fff;border-radius:18px;padding:8px}.foot p{margin:0;color:#dcecf4;font-weight:750}
+    @media(max-width:980px){.hero-grid,.two,.three,.four,.status{grid-template-columns:1fr}.menu{display:none}.hero:after{width:75%;height:86px}.hero-card:before{display:none}.vs{height:10px}.watermark{width:80vw;right:-160px}}
+    @media(max-width:560px){.wrap{width:min(100% - 24px,1140px)}.brand img{width:52px}.actions .btn{width:100%}h1{font-size:3.25rem}.card{padding:19px}.step{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
-<img class="logo-watermark" src="https://www.destination-prevention.fr/wp-content/uploads/2026/06/Cattenom.png" alt="">
-<header class="topbar">
-  <div class="wrap nav">
-    <a class="brand" href="#">
-      <img src="https://www.destination-prevention.fr/wp-content/uploads/2026/06/Cattenom.png" alt="FO Cattenom">
-      <span><b>FO Cattenom</b><span>Agir, ne pas subir</span></span>
-    </a>
-    <nav class="menu" aria-label="Navigation">
-      <a href="#position">Position FO</a>
-      <a href="#impacts">Impacts</a>
-      <a href="#accord">Accord</a>
-      <a href="#scenarios">Scénarios</a>
-      <a href="#contact">Nous contacter</a>
-    </nav>
-  </div>
-</header>
+  <img class="watermark" src="https://www.destination-prevention.fr/wp-content/uploads/2026/06/Cattenom.png" alt="" />
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="#top"><img src="https://www.destination-prevention.fr/wp-content/uploads/2026/06/Cattenom.png" alt="FO Cattenom"><span><b>FO Cattenom</b><span>Agir, ne pas subir !</span></span></a>
+      <nav class="menu"><a href="#impacts">Impacts</a><a href="#accord">Accord</a><a href="#scenarios">Scénarios</a><a href="#contact">Contact</a></nav>
+    </div>
+  </header>
 
-<main>
-<section class="hero">
-  <div class="wrap hero-grid">
-    <div>
-      <div class="kicker">Grille des salaires IEG</div>
-      <h1>Comprendre <span class="blue">ce qui change</span><br>et <span class="red">ce qui inquiète</span></h1>
-      <p class="lead">FO Cattenom propose une lecture claire du projet : les annonces affichées doivent être confrontées aux conséquences concrètes pour les agents, la progression salariale et la reconnaissance collective.</p>
-      <div class="actions">
-        <a class="cta" href="#impacts">Voir les impacts</a>
-        <a class="cta alt" href="#position">Position FO</a>
+  <main id="top">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="kicker">Communication FO · Grille des salaires</span>
+          <h1>Grille des salaires : <span class="blue">quels impacts</span> <span class="red">pour les agents ?</span></h1>
+          <p class="lead">La Direction parle de « modernisation ». FO y voit surtout une <strong>régression durable</strong> : moins de lisibilité, plus d’individualisation et des garanties collectives affaiblies.</p>
+          <div class="actions"><a class="btn" href="#impacts">Voir les impacts</a><a class="btn alt" href="#scenarios">Comprendre les scénarios</a></div>
+        </div>
+        <aside class="hero-card">
+          <p class="bigdate">18 juin<br>2026</p>
+          <p class="warning">Une date symbolique, choisie pour faire signer un accord qui tourne le dos aux salariés.</p>
+        </aside>
       </div>
-    </div>
-    <aside class="hero-card">
-      <p class="date">Décryptage</p>
-      <h2 style="font-size:2.1rem;margin:8px 0 8px">Une modernisation qui n’est pas neutre</h2>
-      <p>Le sujet n’est pas seulement une nouvelle grille : c’est aussi la place laissée à l’individualisation, au management et à la perte de repères collectifs.</p>
-      <div class="warning">À retenir : FO ne confond pas affichage salarial et garanties durables pour les agents.</div>
-      <div class="visual">
-        <div class="metric"><b>+9%</b><span>annonce globale à décoder</span></div>
-        <div class="metric"><b>+1,8%</b><span>hausse garantie évoquée</span></div>
-        <div class="metric alert"><b>33%</b><span>part oubliée / non garantie</span></div>
+    </section>
+
+    <section id="impacts">
+      <div class="wrap">
+        <h2>Ce que l’accord <span class="red">dégrade</span></h2>
+        <p class="sub">FO met en avant les conséquences concrètes pour les agents : cet accord ne se limite pas à une nouvelle présentation de grille, il modifie les repères collectifs.</p>
+        <div class="grid four">
+          <article class="card negative"><div class="icon">⬇️</div><span class="tag bad">NR supprimés</span><h3>Moins de repères connus</h3><p>La suppression des NR rend la progression moins lisible pour les agents.</p></article>
+          <article class="card negative"><div class="icon">📉</div><span class="tag bad">AI à 2 %</span><h3>Une reconnaissance affaiblie</h3><p>Les augmentations individuelles passent sous la moyenne actuelle d’un NR.</p></article>
+          <article class="card negative"><div class="icon">⏳</div><span class="tag bad">Carrière ralentie</span><h3>Une projection moins favorable</h3><p>La progression affichée à 25 % arrive jusqu’à 37 ou 40 ans.</p></article>
+          <article class="card negative"><div class="icon">⚠️</div><span class="tag bad">Risque d’écarts</span><h3>Plus d’individualisation</h3><p>Les pas de 0,1 % renforcent la main managériale et l’opacité.</p></article>
+        </div>
       </div>
-    </aside>
-  </div>
-</section>
+    </section>
 
-<section id="position" class="section">
-  <div class="wrap">
-    <h2><span>Position FO</span> : claire et assumée</h2>
-    <p class="sub">Cette nouvelle proposition reprend la charte graphique de la page “grille salaires” : bleu profond, turquoise FO, rouge limité mais visible pour les points négatifs, grands titres impactants et cartes lisibles.</p>
-    <div class="grid two">
-      <article class="card dark reveal">
-        <span class="tag teal">FO Cattenom</span>
-        <h3>FO ne signera pas cet accord</h3>
-        <p>Notre rôle est d’alerter lorsque les garanties collectives reculent et que la progression devient plus dépendante de critères individualisés.</p>
-      </article>
-      <article class="card negative reveal">
-        <span class="tag bad">Point de vigilance</span>
-        <h3>Un accord qui peut modifier durablement les repères</h3>
-        <p>Moins de lisibilité, plus de marge managériale et une progression salariale moins automatique : c’est le cœur de l’alerte FO.</p>
-      </article>
+    <section>
+      <div class="wrap grid two">
+        <article class="card dark"><span class="tag good">Effet d’annonce</span><h3>Le +9 % n’est pas un +9 % de pouvoir d’achat</h3><p>La réindexation annoncée accompagne la bascule vers une nouvelle structure d’ancienneté. Elle vise surtout à maintenir le niveau de rémunération au moment de la transposition, pas à créer une hausse générale réelle.</p></article>
+        <article class="card negative"><span class="tag bad">Garanties en recul</span><h3>Une seule hausse garantie : +1,8 % sur 3 ans</h3><p>Le projet prévoit 0,6 % en 2027, 0,6 % en 2028 et 0,6 % en 2029. Pour FO, cela ne répond pas aux enjeux de pouvoir d’achat, d’attractivité et de reconnaissance.</p></article>
+      </div>
+    </section>
+
+    <section id="accord">
+      <div class="wrap">
+        <h2>Où en est <span class="blue">l’accord ?</span></h2>
+        <p class="sub">Deux organisations syndicales ont annoncé leur intention de signer. Elles atteindraient le seuil de plus de 30 % de représentativité nécessaire à la validité de la signature.</p>
+        <div class="status">
+          <article class="card"><span class="tag good">Signature</span><h3>Le seuil de 30 % serait atteint</h3><p>La signature serait juridiquement validée, sous réserve de l’absence d’une opposition majoritaire.</p><div class="pillrow"><span class="pill">+ de 30 %</span><span class="pill">Signature validée</span></div></article>
+          <div class="vs">mais</div>
+          <article class="card negative"><span class="tag bad">Opposition</span><h3>FO est contre et affiche son droit d’opposition</h3><p>FO est positionnée contre cet accord et a clairement annoncé sa volonté d’exercer son droit d’opposition.</p><div class="pillrow"><span class="pill fo">FO contre</span><span class="pill alert">Droit d’opposition affiché</span></div></article>
+        </div>
+      </div>
+    </section>
+
+    <section id="scenarios">
+      <div class="wrap">
+        <h2>Les scénarios <span class="blue">possibles</span></h2>
+        <p class="sub">Les organisations non signataires disposent de <strong>10 jours</strong> pour exercer leur droit d’opposition.</p>
+        <div class="timeline">
+          <div class="step"><div><h3>Une seule opposition</h3><p>L’accord passe.</p></div></div>
+          <div class="step"><div><h3>Deux oppositions représentant plus de 50 %</h3><p>L’accord est invalidé et les négociations doivent être rouvertes.</p></div></div>
+          <div class="step"><div><h3>Enjeu pour les agents</h3><p>Empêcher qu’un texte de régression sociale s’installe durablement.</p></div></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="wrap callout">
+        <span class="tag bad">FO alerte</span>
+        <h2>Ce n’est pas une <span class="red">modernisation neutre</span></h2>
+        <p class="lead">Ce projet réduit la grille à des minima et maxima, fragilise le cadre de branche, rend les parcours moins lisibles et ouvre la porte à davantage d’individualisation.</p>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap final">FO dit non à une modernisation qui <span>rabote les droits</span><br>Les agents méritent mieux.</div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <div style="display:flex;align-items:center;gap:14px"><img src="https://www.destination-prevention.fr/wp-content/uploads/2026/06/Cattenom.png" alt="FO Cattenom"><p><strong>FO Cattenom</strong><br>Agir, ne pas subir !</p></div>
+      <p>Nous contacter : <strong>fo-cattenom@edf.fr</strong></p>
     </div>
-  </div>
-</section>
-
-<section id="impacts" class="section">
-  <div class="wrap">
-    <h2>Les <span>points négatifs</span> mis en avant</h2>
-    <p class="sub">Le rouge est utilisé uniquement pour attirer l’attention sur les conséquences défavorables, sans rendre la page agressive.</p>
-    <div class="negative-grid">
-      <div class="neg reveal"><div class="ico">⚠️</div><b>Garantie limitée</b><span>Une hausse affichée ne signifie pas automatiquement un gain durable pour tous.</span></div>
-      <div class="neg reveal"><div class="ico">📉</div><b>Progression moins lisible</b><span>Le parcours salarial peut devenir plus difficile à anticiper.</span></div>
-      <div class="neg reveal"><div class="ico">🧭</div><b>Repères collectifs fragilisés</b><span>La grille protège parce qu’elle donne un cadre commun.</span></div>
-      <div class="neg reveal"><div class="ico">👤</div><b>Individualisation accrue</b><span>Le poids de l’appréciation locale peut devenir plus important.</span></div>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap impact-strip">
-    <article class="card positive reveal">
-      <span class="tag teal">Ce que FO défend</span>
-      <h3>Une grille lisible et protectrice</h3>
-      <ul>
-        <li>Des garanties collectives compréhensibles.</li>
-        <li>Une évolution qui ne dépend pas uniquement de l’arbitrage local.</li>
-        <li>Une reconnaissance salariale durable et vérifiable.</li>
-      </ul>
-    </article>
-    <article class="card negative reveal">
-      <span class="tag bad">Ce que FO refuse</span>
-      <h3>Une modernisation qui masque des reculs</h3>
-      <ul>
-        <li>Des effets d’annonce difficiles à traduire concrètement.</li>
-        <li>Une perte de visibilité pour les agents.</li>
-        <li>Un risque de décisions plus individualisées.</li>
-      </ul>
-    </article>
-  </div>
-</section>
-
-<section id="accord" class="section">
-  <div class="wrap">
-    <h2>Accord : <span>où en est-on ?</span></h2>
-    <p class="sub">Une présentation simple pour comprendre les étapes sans noyer les agents dans le juridique.</p>
-    <div class="timeline">
-      <div class="step reveal"><div><h3>Signature</h3><p>Un accord peut être valable si le seuil de signature requis est atteint.</p></div></div>
-      <div class="step reveal"><div><h3>Délai d’opposition</h3><p>Les organisations représentatives disposent d’un délai pour faire connaître leur opposition.</p></div></div>
-      <div class="step reveal"><div><h3>Rapport de force</h3><p>L’issue dépend du poids cumulé des organisations qui s’opposent à l’accord.</p></div></div>
-    </div>
-  </div>
-</section>
-
-<section id="scenarios" class="section">
-  <div class="wrap">
-    <h2>Les <span>scénarios possibles</span></h2>
-    <div class="grid three">
-      <article class="card reveal">
-        <span class="tag">Scénario 1</span>
-        <h3>FO s’oppose seule</h3>
-        <p>FO affirme sa position mais cela ne suffit pas forcément à bloquer l’accord.</p>
-      </article>
-      <article class="card reveal">
-        <span class="tag amber">Scénario 2</span>
-        <h3>Opposition majoritaire</h3>
-        <p>Si des oppositions majoritaires se cumulent, l’accord peut être empêché.</p>
-      </article>
-      <article class="card reveal">
-        <span class="tag bad">Scénario 3</span>
-        <h3>Accord applicable</h3>
-        <p>Sans opposition suffisante, les nouvelles règles peuvent entrer en application.</p>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap">
-    <div class="callout reveal">
-      <h2>Le message à retenir</h2>
-      <p><strong>Ce n’est pas parce qu’un accord est présenté comme moderne qu’il protège mieux les agents.</strong> FO Cattenom continuera à décrypter les impacts concrets, à alerter sur les reculs et à défendre une rémunération lisible, collective et équitable.</p>
-    </div>
-  </div>
-</section>
-
-<section class="section">
-  <div class="wrap final reveal">
-    Une grille salariale doit protéger les agents,<br><span>pas rendre leur avenir moins lisible.</span>
-  </div>
-</section>
-</main>
-
-<footer id="contact">
-  <div class="wrap foot">
-    <div style="display:flex;align-items:center;gap:14px">
-      <img src="https://www.destination-prevention.fr/wp-content/uploads/2026/06/Cattenom.png" alt="FO Cattenom">
-      <p><strong>FO Cattenom</strong><br>Agir, ne pas subir !</p>
-    </div>
-    <p>Nous contacter : <strong>fo-cattenom@edf.fr</strong></p>
-  </div>
-</footer>
-
-<script>
-const reveals=document.querySelectorAll('.reveal');
-const observer=new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{if(entry.isIntersecting) entry.target.classList.add('show')})
-},{threshold:.12});
-reveals.forEach(el=>observer.observe(el));
-</script>
+  </footer>
 </body>
 </html>
